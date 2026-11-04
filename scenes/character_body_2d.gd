@@ -1,3 +1,6 @@
+# This script handles everything to do with the base player controls.
+
+
 extends CharacterBody2D
 
 # Stats
@@ -6,10 +9,8 @@ const JUMP_VELOCITY = -300.0
 
 # Nodes
 @onready var anim = $AnimatedSprite2D
-@onready var level = "../TileMapLayer"
 @onready var backdrop: Sprite2D = $Backdrop
 @onready var audioPlayer: AudioStreamPlayer2D = $PlayerSounds
-@onready var musicPlayer: AudioStreamPlayer2D = $Music
 
 # Assets
 var jumpSound = preload("res://sounds/jump.wav")
@@ -50,5 +51,6 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+	# Parallax effect
 	backdrop.move_local_x(velocity.x * delta * -0.25)
 	backdrop.move_local_y(velocity.y * delta * -0.25)

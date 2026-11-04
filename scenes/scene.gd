@@ -1,3 +1,7 @@
+# This script mainly just manages the coin collection and updating HUD elements. 
+# You could also do this with a singleton, but this is sometimes just easier
+# to understand.
+
 extends Node2D
 
 var score: int = 0
@@ -15,7 +19,7 @@ func _ready() -> void:
 			coin.collected.connect(_on_coin_collected)
 	score_label.text = "Coins: 0/" + str(total)
 
-
+# Called when recieving a signal from a coin.
 func _on_coin_collected(value: int) -> void:
 	audio_player.play()
 	score += value
