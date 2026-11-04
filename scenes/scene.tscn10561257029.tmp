@@ -1,0 +1,105 @@
+[gd_scene format=4 uid="uid://bqgeyy8pdkj62"]
+
+[ext_resource type="Script" uid="uid://de8uyh7okaqdx" path="res://scenes/character_body_2d.gd" id="1_5yiy0"]
+[ext_resource type="Texture2D" uid="uid://dp5jo2fd1k5ms" path="res://sprites/run10.png" id="1_tpwpp"]
+[ext_resource type="Texture2D" uid="uid://4jhap27i74kg" path="res://sprites/run11.png" id="2_7ftgl"]
+[ext_resource type="Texture2D" uid="uid://cq0kha0amxvfd" path="res://sprites/run2.png" id="3_7ftgl"]
+[ext_resource type="Texture2D" uid="uid://fxkk5vfianhe" path="res://sprites/run3.png" id="3_dqloj"]
+[ext_resource type="Texture2D" uid="uid://ctp33t02vtfnb" path="res://sprites/run4.png" id="4_5yiy0"]
+[ext_resource type="Texture2D" uid="uid://ba7rmjqb4jk0g" path="res://sprites/run5.png" id="5_0f71q"]
+[ext_resource type="Texture2D" uid="uid://edhgssb24kci" path="res://sprites/run6.png" id="6_1id6j"]
+[ext_resource type="Texture2D" uid="uid://cyhl7jdpfo5y2" path="res://sprites/run7.png" id="7_dv0eb"]
+[ext_resource type="Texture2D" uid="uid://chk3jhxker2aj" path="res://sprites/run8.png" id="8_tvkk6"]
+[ext_resource type="Texture2D" uid="uid://b5cx2uyqxfwr7" path="res://sprites/run9.png" id="9_8cc7s"]
+[ext_resource type="Texture2D" uid="uid://bunhf1rhqta5m" path="res://sprites/stand.png" id="11_dqloj"]
+[ext_resource type="TileSet" uid="uid://ctp2xla8bxbqh" path="res://tilesets/sonic.tres" id="13_0f71q"]
+[ext_resource type="Texture2D" uid="uid://6gqpo1tw4jyo" path="res://sprites/bg.png" id="14_1id6j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r2e7w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7ftgl")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tpwpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ftgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ftgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dqloj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5yiy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0f71q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1id6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dv0eb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tvkk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8cc7s")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dqloj")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1id6j"]
+size = Vector2(30, 37)
+
+[node name="Scene" type="Node2D" unique_id=359888320]
+texture_filter = 1
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=936390446]
+position = Vector2(107, 66)
+floor_max_angle = 1.2217305
+floor_snap_length = 32.0
+script = ExtResource("1_5yiy0")
+
+[node name="Backdrop" type="Sprite2D" parent="CharacterBody2D" unique_id=2013248088]
+texture_repeat = 2
+position = Vector2(54, -99)
+texture = ExtResource("14_1id6j")
+region_enabled = true
+region_rect = Rect2(0, 0, 1696, 896)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1390778603]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_r2e7w")
+animation = &"fall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=592320974]
+position = Vector2(-1, 1.5)
+shape = SubResource("RectangleShape2D_1id6j")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1132243774]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=833777843]
+position = Vector2(3, 0)
+tile_map_data = PackedByteArray("AAAAAAEAAAAFAAYAAAABAAEAAAAFAAYAAAACAAEAAAAFAAYAAAADAAEAAAAFAAYAAAD//wEAAAAFAAYAAAAEAAAAAAADABMAAAAFAAAAAAAEABAAAAAGAAAAAAAEABAAAAAEAAEAAAAGAAQAAAAHAAAAAAAAAAAAAAAHAAEAAAABAAIAAAAIAAEAAAACAAIAAAAJAAEAAAAEABAAAAAKAAEAAAAEABAAAAALAAEAAAAEABAAAAAMAAEAAAAEABAAAAANAAEAAAAFABMAAAANAAAAAAAFABMAAAANAAIAAAAFABMAAAD+/wEAAAAGAAQAAAD+/wAAAAADABMAAAD+/wIAAAAGAAQAAAAEAAIAAAAGAAQAAAA=")
+tile_set = ExtResource("13_0f71q")

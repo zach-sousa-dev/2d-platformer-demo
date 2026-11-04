@@ -1,0 +1,188 @@
+[gd_scene format=4 uid="uid://bqgeyy8pdkj62"]
+
+[ext_resource type="Script" uid="uid://de8uyh7okaqdx" path="res://scenes/character_body_2d.gd" id="1_5yiy0"]
+[ext_resource type="Script" uid="uid://b4tsi1bp1dnto" path="res://scenes/scene.gd" id="1_r2e7w"]
+[ext_resource type="Texture2D" uid="uid://dp5jo2fd1k5ms" path="res://sprites/run10.png" id="1_tpwpp"]
+[ext_resource type="AudioStream" uid="uid://do0jq31qf4fdc" path="res://sounds/coin.wav" id="2_2v74y"]
+[ext_resource type="Texture2D" uid="uid://4jhap27i74kg" path="res://sprites/run11.png" id="2_7ftgl"]
+[ext_resource type="Texture2D" uid="uid://cq0kha0amxvfd" path="res://sprites/run2.png" id="3_7ftgl"]
+[ext_resource type="Texture2D" uid="uid://fxkk5vfianhe" path="res://sprites/run3.png" id="3_dqloj"]
+[ext_resource type="Texture2D" uid="uid://ctp33t02vtfnb" path="res://sprites/run4.png" id="4_5yiy0"]
+[ext_resource type="Texture2D" uid="uid://ba7rmjqb4jk0g" path="res://sprites/run5.png" id="5_0f71q"]
+[ext_resource type="Texture2D" uid="uid://edhgssb24kci" path="res://sprites/run6.png" id="6_1id6j"]
+[ext_resource type="Texture2D" uid="uid://cyhl7jdpfo5y2" path="res://sprites/run7.png" id="7_dv0eb"]
+[ext_resource type="Texture2D" uid="uid://chk3jhxker2aj" path="res://sprites/run8.png" id="8_tvkk6"]
+[ext_resource type="Texture2D" uid="uid://b5cx2uyqxfwr7" path="res://sprites/run9.png" id="9_8cc7s"]
+[ext_resource type="Texture2D" uid="uid://bunhf1rhqta5m" path="res://sprites/stand.png" id="11_dqloj"]
+[ext_resource type="TileSet" uid="uid://ctp2xla8bxbqh" path="res://tilesets/sonic.tres" id="13_0f71q"]
+[ext_resource type="Texture2D" uid="uid://6gqpo1tw4jyo" path="res://sprites/bg.png" id="14_1id6j"]
+[ext_resource type="AudioStream" uid="uid://ch8b7gnseub50" path="res://sounds/CHOOSE_YOUR_CHARACTER.mp3" id="14_dv0eb"]
+[ext_resource type="PackedScene" uid="uid://lpxbjw3lryby" path="res://scenes/coin.tscn" id="17_8cc7s"]
+[ext_resource type="FontFile" uid="uid://2g5ul7skrwn" path="res://font/HomeVideo-Regular.ttf" id="21_fsfa6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r2e7w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7ftgl")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tpwpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ftgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ftgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dqloj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5yiy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0f71q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1id6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dv0eb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tvkk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8cc7s")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dqloj")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1id6j"]
+size = Vector2(30, 38)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t6gja"]
+font = ExtResource("21_fsfa6")
+font_size = 18
+font_color = Color(0.9490196, 0.30980393, 0.3882353, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0.85)
+
+[node name="Scene" type="Node2D" unique_id=359888320]
+texture_filter = 1
+script = ExtResource("1_r2e7w")
+
+[node name="CoinSoundPlayer" type="AudioStreamPlayer2D" parent="." unique_id=280152954]
+position = Vector2(-1, 0)
+stream = ExtResource("2_2v74y")
+volume_db = -4.459
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=936390446]
+position = Vector2(704, 40)
+floor_max_angle = 1.2217305
+floor_snap_length = 8.0
+script = ExtResource("1_5yiy0")
+
+[node name="Backdrop" type="Sprite2D" parent="CharacterBody2D" unique_id=2013248088]
+texture_repeat = 2
+position = Vector2(46, -150)
+texture = ExtResource("14_1id6j")
+region_enabled = true
+region_rect = Rect2(0, 0, 1696, 896)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1390778603]
+position = Vector2(0, 1.5)
+sprite_frames = SubResource("SpriteFrames_r2e7w")
+animation = &"fall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=592320974]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_1id6j")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1132243774]
+
+[node name="PlayerSounds" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=575271153]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1200472775]
+stream = ExtResource("14_dv0eb")
+autoplay = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=833777843]
+tile_map_data = PackedByteArray("AAAAAAEAAAAFAAYAAAABAAEAAAAFAAYAAAACAAEAAAAFAAYAAAADAAEAAAAFAAYAAAD//wEAAAAFAAYAAAAEAAAAAAADABMAAAAFAAAAAAAEABAAAAAGAAAAAAAEABAAAAAEAAEAAAAAAAwAAAAHAAAAAAAAAAAAAAAHAAEAAAABAAIAAAAIAAEAAAACAAIAAAAJAAEAAAAEABAAAAAKAAEAAAAEABAAAAALAAEAAAAEABAAAAAMAAEAAAAEABAAAAANAAEAAAAFABMAAAANAAAAAAAFABMAAAANAAIAAAAAAAwAAAD+/wEAAAAGAAQAAAD+/wAAAAADABMAAAD+/wIAAAAGAAQAAAAEAAIAAAAAAAwAAAD9/wEAAAAGAAAAAAD9/wIAAAAGAAIAAAANAAMAAAAAAAwAAAAOAAIAAAAAAAwAAAAOAAMAAAAAAAwAAAAMAAIAAAAAAAwAAAAMAAMAAAAAAAwAAAA=")
+tile_set = ExtResource("13_0f71q")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1721265442]
+
+[node name="Score Label" type="Label" parent="HUD" unique_id=1954224997]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 135.0
+offset_bottom = 39.0
+scale = Vector2(1.1200001, 1.1200001)
+text = "Coins: 0/10"
+label_settings = SubResource("LabelSettings_t6gja")
+
+[node name="Coins" type="Node2D" parent="." unique_id=663243017]
+
+[node name="Coin" parent="Coins" unique_id=1381967563 instance=ExtResource("17_8cc7s")]
+position = Vector2(400, 120)
+
+[node name="Coin2" parent="Coins" unique_id=1068940418 instance=ExtResource("17_8cc7s")]
+position = Vector2(384, 120)
+
+[node name="Coin3" parent="Coins" unique_id=2140907732 instance=ExtResource("17_8cc7s")]
+position = Vector2(368, 120)
+
+[node name="Coin4" parent="Coins" unique_id=2086685529 instance=ExtResource("17_8cc7s")]
+position = Vector2(352, 120)
+
+[node name="Coin5" parent="Coins" unique_id=418388575 instance=ExtResource("17_8cc7s")]
+position = Vector2(336, 120)
+
+[node name="Coin6" parent="Coins" unique_id=1429632879 instance=ExtResource("17_8cc7s")]
+position = Vector2(-104, 80)
+
+[node name="Coin7" parent="Coins" unique_id=330301110 instance=ExtResource("17_8cc7s")]
+position = Vector2(-88, 80)
+
+[node name="Coin8" parent="Coins" unique_id=1547160966 instance=ExtResource("17_8cc7s")]
+position = Vector2(1080, 80)
+
+[node name="Coin9" parent="Coins" unique_id=1659480137 instance=ExtResource("17_8cc7s")]
+position = Vector2(1480, 136)
+
+[node name="Coin10" parent="Coins" unique_id=681546999 instance=ExtResource("17_8cc7s")]
+position = Vector2(1512, 136)
+
+[node name="Coin11" parent="Coins" unique_id=58326406 instance=ExtResource("17_8cc7s")]
+position = Vector2(1464, 168)
+
+[node name="Coin12" parent="Coins" unique_id=134622170 instance=ExtResource("17_8cc7s")]
+position = Vector2(1480, 184)
+
+[node name="Coin13" parent="Coins" unique_id=1862535012 instance=ExtResource("17_8cc7s")]
+position = Vector2(1496, 184)
+
+[node name="Coin14" parent="Coins" unique_id=636181956 instance=ExtResource("17_8cc7s")]
+position = Vector2(1512, 184)
+
+[node name="Coin15" parent="Coins" unique_id=1323631067 instance=ExtResource("17_8cc7s")]
+position = Vector2(1528, 168)
