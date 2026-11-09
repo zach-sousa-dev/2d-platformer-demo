@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://6gqpo1tw4jyo" path="res://sprites/bg.png" id="14_1id6j"]
 [ext_resource type="AudioStream" uid="uid://ch8b7gnseub50" path="res://sounds/CHOOSE_YOUR_CHARACTER.mp3" id="14_dv0eb"]
 [ext_resource type="PackedScene" uid="uid://lpxbjw3lryby" path="res://scenes/coin.tscn" id="17_8cc7s"]
+[ext_resource type="Script" uid="uid://cqpjs7ne2gkne" path="res://scenes/field.gd" id="20_c7gmr"]
 [ext_resource type="FontFile" uid="uid://2g5ul7skrwn" path="res://font/HomeVideo-Regular.ttf" id="21_fsfa6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r2e7w"]
@@ -26,7 +27,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_7ftgl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -61,7 +62,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_8cc7s")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 12.0
 }, {
@@ -69,7 +70,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("11_dqloj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"stand",
 "speed": 5.0
 }]
@@ -85,6 +86,16 @@ shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0, 0.85)
 
+[sub_resource type="SphereMesh" id="SphereMesh_2v74y"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2v74y"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7gmr"]
+radius = 146.05
+
 [node name="Scene" type="Node2D" unique_id=359888320]
 texture_filter = 1
 script = ExtResource("1_r2e7w")
@@ -94,34 +105,34 @@ position = Vector2(-1, 0)
 stream = ExtResource("2_2v74y")
 volume_db = -4.459
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=936390446]
-position = Vector2(704, 40)
-floor_max_angle = 1.2217305
-floor_snap_length = 8.0
-script = ExtResource("1_5yiy0")
-
-[node name="Backdrop" type="Sprite2D" parent="CharacterBody2D" unique_id=2013248088]
-texture_repeat = 2
-position = Vector2(46, -150)
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=2013248088]
+texture_repeat = 3
+position = Vector2(552, -80)
 texture = ExtResource("14_1id6j")
 region_enabled = true
-region_rect = Rect2(0, 0, 1696, 896)
+region_rect = Rect2(0, 0, 2576, 2112)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1390778603]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=936390446]
+position = Vector2(704, 40)
+floor_max_angle = 1.2217305
+floor_snap_length = 11.9
+script = ExtResource("1_5yiy0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1390778603]
 position = Vector2(0, 1.5)
 sprite_frames = SubResource("SpriteFrames_r2e7w")
 animation = &"fall"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=592320974]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=592320974]
 visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_1id6j")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1132243774]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1132243774]
 
-[node name="PlayerSounds" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=575271153]
+[node name="PlayerSounds" type="AudioStreamPlayer2D" parent="Player" unique_id=575271153]
 
-[node name="Music" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1200472775]
+[node name="Music" type="AudioStreamPlayer2D" parent="Player" unique_id=1200472775]
 stream = ExtResource("14_dv0eb")
 autoplay = true
 
@@ -186,3 +197,44 @@ position = Vector2(1512, 184)
 
 [node name="Coin15" parent="Coins" unique_id=1323631067 instance=ExtResource("17_8cc7s")]
 position = Vector2(1528, 168)
+
+[node name="Coin16" parent="Coins" unique_id=1591004081 instance=ExtResource("17_8cc7s")]
+position = Vector2(1560, -184)
+
+[node name="Planets" type="Node2D" parent="." unique_id=1794890422]
+
+[node name="Planet" type="Node2D" parent="Planets" unique_id=348478657]
+position = Vector2(1152, -40)
+
+[node name="Ground" type="StaticBody2D" parent="Planets/Planet" unique_id=607370573]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Planets/Planet/Ground" unique_id=826134661]
+scale = Vector2(20.022686, 20.001127)
+mesh = SubResource("SphereMesh_2v74y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet/Ground" unique_id=529377704]
+shape = SubResource("CircleShape2D_2v74y")
+
+[node name="Field" type="Area2D" parent="Planets/Planet" unique_id=236064585]
+script = ExtResource("20_c7gmr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet/Field" unique_id=1103150960]
+shape = SubResource("CircleShape2D_c7gmr")
+
+[node name="Planet2" type="Node2D" parent="Planets" unique_id=308948996]
+position = Vector2(1384, -144)
+
+[node name="Ground" type="StaticBody2D" parent="Planets/Planet2" unique_id=639101918]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Planets/Planet2/Ground" unique_id=1961044616]
+scale = Vector2(20.022686, 20.001127)
+mesh = SubResource("SphereMesh_2v74y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet2/Ground" unique_id=234289585]
+shape = SubResource("CircleShape2D_2v74y")
+
+[node name="Field" type="Area2D" parent="Planets/Planet2" unique_id=1356297431]
+script = ExtResource("20_c7gmr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet2/Field" unique_id=574164375]
+shape = SubResource("CircleShape2D_c7gmr")
